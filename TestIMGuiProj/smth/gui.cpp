@@ -12,6 +12,7 @@ void setDigButtons();
 void paintCenterText(std::string text);
 void paintFullWidthInputText(char* label, char* buf, size_t buf_size);
 void fillStrWithNulls(char* str);
+void paintCenterInputText(char* label, char* buf, size_t buf_size, unsigned int width);
 
 int defFontSize = 20;
 
@@ -296,10 +297,17 @@ void gui::Render() noexcept							// «десь происходит ѕќ јƒ–ќ¬јя отрисовка
 	paintCenterText((char*)u8"ѕривет, мир!");		/* ѕример, как надо использовать русский €зык
 													   в ImGui, т.е. перед строкой ставим u8 и 
 													   ќЅя«ј“≈Ћ№Ќќ приводим к char* */
-	paintFullWidthInputText(
+	/*paintFullWidthInputText(
 		(char*)"##input1",							// "##" означает невидимость подписи InputText
 		mainInputFieldBuf, 
-		IM_ARRAYSIZE(mainInputFieldBuf));	
+		IM_ARRAYSIZE(mainInputFieldBuf));*/
+
+	paintCenterInputText(
+		(char*)"##input1",							// "##" означает невидимость подписи InputText
+		mainInputFieldBuf,
+		IM_ARRAYSIZE(mainInputFieldBuf),
+		145
+	);
 
 	setDigButtons(); 
 
@@ -312,7 +320,7 @@ void setDigButtons()
 {
 	float width = ImGui::GetWindowWidth();
 	ImVec2 calc = ImGui::CalcTextSize("1");
-	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
+	ImGui::SetCursorPosX(width / 4.5 - defCalcDigBtnSize.x / 2);
 	if (ImGui::Button("1", defCalcDigBtnSize))
 	{
 		strcat_s(mainInputFieldBuf, "1");
@@ -371,7 +379,7 @@ void setDigButtons()
 		}
 	}
 
-	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
+	ImGui::SetCursorPosX(width / 4.5 - defCalcDigBtnSize.x / 2);
 	if (ImGui::Button("4", defCalcDigBtnSize))
 	{
 		strcat_s(mainInputFieldBuf, "4");
@@ -429,7 +437,7 @@ void setDigButtons()
 		}
 	}
 
-	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
+	ImGui::SetCursorPosX(width / 4.5 - defCalcDigBtnSize.x / 2);
 	if (ImGui::Button("7", defCalcDigBtnSize))
 	{
 		strcat_s(mainInputFieldBuf, "7");
@@ -487,7 +495,7 @@ void setDigButtons()
 		}
 	}
 
-	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
+	ImGui::SetCursorPosX(width / 4.5 - defCalcDigBtnSize.x / 2);
 	if (ImGui::Button(".", defCalcDigBtnSize))
 	{
 		if (!isComAlrExist)
@@ -577,7 +585,7 @@ void setDigButtons()
 		}
 	}
 
-	ImGui::SetCursorPosX(width / 2 - (defFontSize + 10) * 5 / 2 + 6);
+	ImGui::SetCursorPosX(width / 2 - (defFontSize + 10) * 5 / 2 + 4);
 	ImVec2 backButtonSize((defFontSize + 9) * 5, defFontSize + 10);
 	if (ImGui::Button("<-", backButtonSize))
 	{
@@ -614,6 +622,15 @@ void paintCenterText(std::string text)				// ≈сли задать в параметрах char* вмес
 	ImVec2 calc = ImGui::CalcTextSize(c_text);
 	ImGui::SetCursorPosX(width / 2 - calc.x / 2);
 	ImGui::Text(c_text);
+}
+
+void paintCenterInputText(char* label, char* buf, size_t buf_size, unsigned int width)
+{
+	float wndWidth = ImGui::GetWindowWidth();
+	ImGui::SetCursorPosX(wndWidth / 2 - width / 2);
+	ImGui::PushItemWidth(width);
+	ImGui::InputText(label, buf, buf_size);
+	ImGui::PopItemWidth();
 }
 
 void paintFullWidthInputText(char* label, char* buf, size_t buf_size)
