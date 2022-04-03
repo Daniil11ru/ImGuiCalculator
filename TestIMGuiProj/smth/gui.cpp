@@ -310,6 +310,9 @@ void gui::Render() noexcept							// «десь происходит ѕќ јƒ–ќ¬јя отрисовка
 
 void setDigButtons()
 {
+	float width = ImGui::GetWindowWidth();
+	ImVec2 calc = ImGui::CalcTextSize("1");
+	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
 	if (ImGui::Button("1", defCalcDigBtnSize))
 	{
 		strcat_s(mainInputFieldBuf, "1");
@@ -368,6 +371,7 @@ void setDigButtons()
 		}
 	}
 
+	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
 	if (ImGui::Button("4", defCalcDigBtnSize))
 	{
 		strcat_s(mainInputFieldBuf, "4");
@@ -425,6 +429,7 @@ void setDigButtons()
 		}
 	}
 
+	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
 	if (ImGui::Button("7", defCalcDigBtnSize))
 	{
 		strcat_s(mainInputFieldBuf, "7");
@@ -482,6 +487,7 @@ void setDigButtons()
 		}
 	}
 
+	ImGui::SetCursorPosX(width / 4 - calc.x / 2);
 	if (ImGui::Button(".", defCalcDigBtnSize))
 	{
 		if (!isComAlrExist)
