@@ -576,6 +576,25 @@ void setDigButtons()
 			isComAlrExist = false;
 		}
 	}
+
+	ImGui::SetCursorPosX(width / 2 - (defFontSize + 10) * 5 / 2 + 6);
+	ImVec2 backButtonSize((defFontSize + 9) * 5, defFontSize + 10);
+	if (ImGui::Button("<-", backButtonSize))
+	{
+		if (strlen(mainInputFieldBuf) > 0)
+			mainInputFieldBuf[strlen(mainInputFieldBuf) - 1] = '\0';
+
+		if (isFirstOperand)
+		{
+			if (strlen(firstOperand) > 0)
+				firstOperand[strlen(firstOperand) - 1] = '\0';
+		}
+		else
+		{
+			if (strlen(secOperand) > 0)
+				secOperand[strlen(secOperand) - 1] = '\0';
+		}
+	}
 }
 
 void fillStrWithNulls(char* str)
